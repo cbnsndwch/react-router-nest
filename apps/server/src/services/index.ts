@@ -1,6 +1,6 @@
-import { AppService } from './app.service';
+import { AppService } from './app.service.js';
 
-export * from './app.service';
+export * from './app.service.js';
 
 export const services = [
     AppService,

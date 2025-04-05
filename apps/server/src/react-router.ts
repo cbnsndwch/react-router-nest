@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable-next-line import/no-unresolved */
+ 
+ 
 import path from 'node:path';
 
 import { NestExpressApplication } from '@nestjs/platform-express';

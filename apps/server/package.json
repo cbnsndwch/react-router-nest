@@ -1,7 +1,7 @@
 {
     "name": "@cbnsndwch/react-router-nest-server",
-    "version": "0.2.0",
     "description": "Remix/Vite/NestJS custom server demo",
+    "version": "0.2.0",
     "private": true,
     "author": {
         "name": "Sergio Leon",
@@ -19,7 +19,7 @@
         "debug": "nest start --watch --debug",
         "prod": "node dist/main",
         "format": "prettier --write {app,src}/**/*.{ts,tsx}",
-        "lint": "eslint \"{src,app}/**/*.{ts,tsx}\" --fix",
+        "lint": "eslint \"./{src,app}/**/*.{ts,tsx}\" --fix",
         "test": "vitest",
         "test:watch": "vitest --watch",
         "test:cov": "vitest --coverage",

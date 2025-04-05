@@ -4,7 +4,6 @@
         "libs/contracts",
         "libs/remix-feature-routes"
     ],
-    "eslint.lintTask.options": "-c .eslintrc.vscode.js",
     "files.eol": "\n",
     "files.associations": {
         "*.css": "tailwindcss",

@@ -1,6 +1,7 @@
+import type { AppService } from 'src/services';
+
 import type { Route } from './+types/home';
 
-import type { AppService } from 'src/services';
 
 export function meta() {
     return [{ title: 'Remix Notes' }];

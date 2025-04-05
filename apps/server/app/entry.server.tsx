@@ -14,8 +14,8 @@ export default function handleRequest(
     request: Request,
     responseStatusCode: number,
     responseHeaders: Headers,
-    routerContext: EntryContext,
-    loadContext: AppLoadContext
+    routerContext: EntryContext
+    // loadContext: AppLoadContext
 ) {
     return new Promise((resolve, reject) => {
         let shellRendered = false;
