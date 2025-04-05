@@ -1,5 +1,5 @@
 {
-    "name": "@cbnsndwch/react-router-7-nest-server",
+    "name": "@cbnsndwch/react-router-nest",
     "version": "0.3.0",
     "description": "React Router 7 x NestJS custom server",
     "private": true,
@@ -11,7 +11,7 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/cbnsndwch/react-router-7-nest-server"
+        "url": "https://github.com/cbnsndwch/react-router-nest"
     },
     "scripts": {
         "clean": "turbo run clean",
