@@ -18,6 +18,7 @@
             ],
             "cwd": "${workspaceRoot}/apps/server",
             "envFile": "${workspaceFolder}/apps/server/.env.local",
+            "console": "integratedTerminal",
             "internalConsoleOptions": "openOnSessionStart"
         }
     ]

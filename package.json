@@ -13,15 +13,9 @@
         "type": "git",
         "url": "https://github.com/cbnsndwch/react-router-7-nest-server"
     },
-    "workspaces": {
-        "packages": [
-            "apps/*",
-            "libs/*"
-        ]
-    },
     "scripts": {
         "clean": "turbo run clean",
-        "build": "turbo run build",
+        "build:all": "turbo run build",
         "build:web": "turbo run build --filter=\"./apps/web\"",
         "build:api": "turbo run build --filter=\"./apps/api\"",
         "build:libs": "turbo run build --filter=\"./libs/*\"",

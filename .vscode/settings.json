@@ -43,6 +43,8 @@
     },
     "cSpell.words": [
         "codemods",
-        "isbot"
+        "esbuild",
+        "isbot",
+        "Pipeable"
     ]
 }
