@@ -1,0 +1,48 @@
+{
+    "eslint.workingDirectories": [
+		"apps/server",
+        "libs/contracts",
+        "libs/remix-feature-routes"
+    ],
+    "eslint.lintTask.options": "-c .eslintrc.vscode.js",
+    "files.eol": "\n",
+    "files.associations": {
+        "*.css": "tailwindcss",
+        ".env": "dotenv",
+        ".env.*": "dotenv"
+    },
+    "svg.preview.background": "transparent",
+    "debug.inlineValues": "on",
+    "vite.autoStart": false,
+    "vite.buildCommand": "pnpm build",
+    "vite.showTerminal": true,
+    "vite.port": 5173,
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.patterns": {
+        "*.ts": "${capture}.js,${capture}.spec.ts,${capture}.spec-d.ts,${capture}.spec.tsx,${capture}.spec-d.tsx,${capture}.options.ts,${capture}.test.ts,${capture}.test-d.ts,${capture}.test.tsx,${capture}.test-d.tsx,${capture}.stories.ts,${capture}.stories.tsx,${capture}.mdx",
+        "*.tsx": "${capture}.jsx,${capture}.spec.tsx,${capture}.spec-d.tsx,${capture}.test.tsx,${capture}.test-d.tsx,${capture}.stories.tsx,${capture}.stories.ts,${capture}.mdx",
+        "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts, ${capture}.http",
+        "*.json": "${capture}.js,${capture}.ts",
+        ".env": ".env.*",
+        ".eslintrc.json": ".eslintrc.*.json,.eslintignore",
+        ".eslintrc.js": ".eslintrc.*.js,.eslintignore",
+        ".eslintrc.cjs": ".eslintrc.*.cjs,.eslintignore",
+        ".gitignore": ".gitkeep,.gitattributes",
+        ".prettierrc.json": ".prettierrc.*.json,.prettierignore",
+        ".prettierrc": ".prettierignore",
+        "package.json": "package-lock.json,yarn.lock,pnpm-lock.yaml",
+        "tsconfig.json": "tsconfig.*.json,tsconfig.tsbuildinfo",
+    },
+	"prettier.prettierPath": "node_modules/prettier/index.cjs",
+    "editor.rulers": [80],
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/node_modules/*/**": true,
+        "**/.turbo/**": true,
+    },
+    "cSpell.words": [
+        "codemods",
+        "isbot"
+    ]
+}

@@ -1,0 +1,9 @@
+.vscode
+assets
+dist
+docs
+node_modules
+.editorconfig
+.gitignore
+.prettierignore
+.prettierrc

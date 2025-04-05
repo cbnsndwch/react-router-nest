@@ -1,0 +1,88 @@
+# Yarn
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+.pnp.*
+
+# Dependencies & compiled output
+/.turbo/cookies
+**/*.tsbuildinfo
+**/node_modules
+**/.cache/
+**/.pnp.*
+lib
+build
+dist
+
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# macOS
+.DS_Store
+
+# Tests
+/coverage
+/.nyc_output
+apps/*/coverage
+packages/*/coverage
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# temp directory
+.temp
+.tmp
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Diagnostic reports (https://nodejs.org/api/report.html)
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Environments and credentials
+.env
+**/.env
+.env*
+**/.env*
+*credentials
+apps/*/config/*.env
+
+# Others
+lerna-debug.log
+npm-debug.log
+tsconfig.tsbuildinfo
+.n
+
+# Local only
+.local
+**/.local
+changelog-temp.md
+tools/dep-version-map.json
+
+/apps/server/vite.config.mts.timestamp*
+
+/.turbo

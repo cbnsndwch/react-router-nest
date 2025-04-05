@@ -1,0 +1,15 @@
+{
+    "recommendations": [
+        "codezombiech.gitignore",
+        "dbaeumer.vscode-eslint",
+        "eamodio.gitlens",
+        "EditorConfig.EditorConfig",
+        "esbenp.prettier-vscode",
+        "formulahendry.auto-close-tag",
+        "formulahendry.auto-rename-tag",
+        "jock.svg",
+        "Serhioromano.vscode-gitflow",
+        "antfu.vite",
+        "bradlc.vscode-tailwindcss"
+    ]
+}
