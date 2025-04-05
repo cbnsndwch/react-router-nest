@@ -1,6 +1,6 @@
 {
     "name": "@cbnsndwch/react-router-nest-server",
-    "description": "Remix/Vite/NestJS custom server demo",
+    "description": "React Router 7 x NestJS custom server",
     "version": "0.2.0",
     "private": true,
     "author": {

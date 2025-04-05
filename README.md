@@ -1,17 +1,29 @@
-# @cbnsndwch/react-router-7-nest-server
+# @cbnsndwch/react-router-nest
 
-Remix/Vite/NestJS custom server demo
+`React Router 7` x `NestJS` custom server template for `Turbo` + `PNPM` monorepos
 
 ## Description
 
-A [Turbo](https://turbo.build/repo) + [Yarn v4](https://yarnpkg.com/) monorepo demonstrating how to run Remix on a NestJS custom server. It showcases the integration of Remix, a modern React framework for building better websites, with NestJS, a progressive Node.js framework for building efficient and scalable server-side applications.
+A [Turbo] + [PNPM] monorepo demonstrating how to run [React Router 7] on a [NestJS] custom server. It showcases the integration of React Router 7, a modern React framework for building better websites, with NestJS, a progressive Node.js framework for building efficient and scalable server-side applications.
+
+## Overview
+
+This demo shows how to leverage modern routing and server-side rendering from React Router 7 while keeping the NestJS backend robust and scalable.
+
+
+## Repository Structure
+
+- apps/
+    - server: NestJS custom server integrated with React Router 7
+- libs/
+    - (empty): Intended location for app-specific libraries
 
 ## Getting Started
 
 ### Installing
 
-- Clone the repository: `git clone https://github.com/cbnsndwch/react-router-7-nest-server.git`
-- Navigate to the project directory: `cd react-router-7-nest-server`
+- Clone the repository: `git clone https://github.com/cbnsndwch/react-router-nest.git`
+- Navigate to the project directory: `cd react-router-nest`
 - Install dependencies: `pnpm i`
 
 ### Running in Dev Mode
@@ -22,12 +34,14 @@ A [Turbo](https://turbo.build/repo) + [Yarn v4](https://yarnpkg.com/) monorepo d
 
 ## Contributing
 
-Here are some ways you can contribute to this repository:
+We welcome contributions from the community! Please consider the following:
+- Follow the code style and linting guidelines.
+- Write clear commit messages.
+- Include tests for new features or bug fixes.
+- Open issues to discuss major changes before implementing them.
+- Feel free to open a pull request with improvements.
 
-- Tweet [@cbnsndwch](https://twitter.com/cbnsndwch), [@remix_run](https://twitter.com/remix_run), and [@nestframework](https://twitter.com/nestframework) to help bring all the maintainers together.
-- Open issues for bugs, typos, or to notify of incorrect information
-- Create or participate in discussions about the site or the content.
-- Pull requests that improve the DX, feature coverage, and documentation are all welcome!
+For more details, check the [CONTRIBUTING.md](CONTRIBUTING.md) if available or contact the maintainers.
 
 ## Authors
 
@@ -36,3 +50,8 @@ Here are some ways you can contribute to this repository:
 ## License
 
 This project is licensed under the MIT license. See [LICENSE.md](LICENSE.md) for details.
+
+[React Router 7]: https://reactrouter.com/home
+[Turbo]: https://turbo.build/docs
+[PNPM]: https://pnpm.io/
+[NestJS]: https://docs.nestjs.com/
