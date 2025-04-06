@@ -1,7 +1,7 @@
 {
     "name": "@cbnsndwch/react-router-nest-server",
     "description": "React Router 7 x NestJS custom server",
-    "version": "0.4.3",
+    "version": "0.4.4",
     "private": true,
     "author": {
         "name": "Sergio Leon",
@@ -81,6 +81,7 @@
         "@typescript-eslint/parser": "^8.29.0",
         "@vitest/coverage-v8": "^3.1.1",
         "@vitest/ui": "^3.1.1",
+        "jsdom": "^24.0.0",
         "autoprefixer": "^10.4.21",
         "cookie": "^1.0.2",
         "dotenv": "^16.4.7",

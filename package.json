@@ -1,14 +1,14 @@
 {
     "name": "@cbnsndwch/react-router-nest",
-    "version": "0.4.3",
     "description": "React Router 7 x NestJS custom server",
+    "version": "0.4.4",
+    "license": "MIT",
     "private": true,
     "author": {
         "name": "Sergio Leon",
         "email": "oss@cbnsndwch.io",
         "url": "https://www.cbnsndwch.io"
     },
-    "license": "MIT",
     "repository": {
         "type": "git",
         "url": "https://github.com/cbnsndwch/react-router-nest"

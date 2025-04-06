@@ -19,6 +19,17 @@ Thank you for your interest in contributing to the project!
 - Open a pull request with a description of your changes.
 - Link any related issues.
 - Be prepared to receive feedback and make revisions as needed.
+- The CI/CD pipeline will automatically run tests on your changes.
+
+## CI/CD Workflows
+
+This project uses GitHub Actions for continuous integration and deployment:
+
+- Tests are automatically run on pull requests and tagged releases
+- Docker images are built and published for tagged releases that follow semantic versioning (v*.*.*)
+- Make sure your code passes all tests locally before pushing
+
+For more details about the CI/CD workflows, see [WORKFLOWS.md](.github/WORKFLOWS.md).
 
 ## Reporting Issues
 
