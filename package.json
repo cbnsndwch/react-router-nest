@@ -28,7 +28,8 @@
         "vpatch": "pnpm exec tsx ./tools/version-bump.ts patch",
         "vminor": "pnpm exec tsx ./tools/version-bump.ts minor",
         "vmajor": "pnpm exec tsx ./tools/version-bump.ts major",
-        "vset": "pnpm exec tsx ./tools/version-bump.ts"
+        "vset": "pnpm exec tsx ./tools/version-bump.ts",
+        "vtag": "pnpm exec tsx ./tools/create-version-tag.ts"
     },
     "devDependencies": {
         "@types/estree": "^1.0.7",
