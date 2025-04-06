@@ -42,7 +42,7 @@ docker buildx build --platform linux/amd64,linux/arm64 \
 
 ## Deployment
 
-For information about deploying these images in a Docker Swarm environment, see the [Docker Stack documentation](.docker/README.md).
+For information about deploying these images in a Docker Swarm environment, see the [Docker Stack documentation](../.docker/README.md).
 
 ## Best Practices
 

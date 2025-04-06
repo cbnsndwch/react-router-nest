@@ -42,7 +42,7 @@ The project includes Docker support with multi-architecture images (amd64/arm64)
 - A Docker Swarm stack configuration is available in `.docker/stack.yml`
 
 For more information:
-- See [Docker Image Guidelines](.github/DOCKER.md) for details on the Docker images
+- See [Docker Image Guidelines](docs/DOCKER.md) for details on the Docker images
 - See [Docker Stack Documentation](.docker/README.md) for deployment instructions
 
 ## Contributing
