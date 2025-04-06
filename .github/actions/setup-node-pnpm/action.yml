@@ -1,0 +1,61 @@
+name: 'Setup Node.js and pnpm'
+description: 'Sets up Node.js and pnpm with dependency caching'
+
+inputs:
+  node-version-file:
+    description: 'File containing the Node.js version to use'
+    required: false
+    default: 'package.json'
+  
+  install-deps:
+    description: 'Whether to install dependencies'
+    required: false
+    default: 'true'
+  
+  frozen-lockfile:
+    description: 'Whether to use frozen lockfile for installations'
+    required: false
+    default: 'true'
+
+outputs:
+  cache-hit:
+    description: 'Whether the cache was hit'
+    value: ${{ steps.pnpm-cache.outputs.cache-hit }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version-file: ${{ inputs.node-version-file }}
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        run_install: false
+
+    - name: Get pnpm store directory
+      id: pnpm-cache-dir
+      shell: bash
+      run: |
+        echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+    - name: Setup pnpm cache
+      id: pnpm-cache
+      uses: actions/cache@v4
+      with:
+        path: ${{ steps.pnpm-cache-dir.outputs.STORE_PATH }}
+        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-store-
+
+    - name: Install dependencies
+      if: ${{ inputs.install-deps == 'true' }}
+      shell: bash
+      run: |
+        if [[ "${{ inputs.frozen-lockfile }}" == "true" ]]; then
+          pnpm install --frozen-lockfile
+        else
+          pnpm install
+        fi

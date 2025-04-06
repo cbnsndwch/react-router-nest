@@ -1,0 +1,30 @@
+name: Develop Branch
+
+on:
+  push:
+    branches:
+      - develop
+
+# Add permissions needed for GHCR
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  test:
+    name: Run Tests
+    uses: ./.github/workflows/reusable-test.yml
+    with:
+      package-filter: "@cbnsndwch/react-router-nest-server"
+      test-command: "test:cov"
+      build-command: "build:app"
+
+  build-and-push:
+    name: Build & Push Docker Image
+    needs: test
+    if: ${{ needs.test.outputs.tests_passed == 'true' }}
+    uses: ./.github/workflows/reusable-docker-build.yml
+    with:
+      push: true
+      is-develop: true
+      include-latest: true

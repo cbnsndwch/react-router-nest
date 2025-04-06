@@ -1,0 +1,58 @@
+name: 'Docker Metadata Configuration'
+description: 'Configures Docker metadata with appropriate tags based on context'
+
+inputs:
+  image-name:
+    description: 'The base name of the Docker image'
+    required: true
+  
+  tag-version:
+    description: 'Version to use for tagging (without v prefix)'
+    required: false
+    default: ''
+  
+  is-develop:
+    description: 'Whether this is a develop branch build'
+    required: false
+    default: 'false'
+  
+  is-release:
+    description: 'Whether this is a release tag build'
+    required: false
+    default: 'false'
+  
+  include-latest:
+    description: 'Whether to include the latest tag'
+    required: false
+    default: 'false'
+  
+  sha:
+    description: 'Git SHA to use for tagging'
+    required: false
+    default: ${{ github.sha }}
+
+outputs:
+  tags:
+    description: 'Generated Docker tags'
+    value: ${{ steps.meta.outputs.tags }}
+  
+  labels:
+    description: 'Generated Docker labels'
+    value: ${{ steps.meta.outputs.labels }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Generate Docker tags and labels
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ${{ inputs.image-name }}
+        tags: |
+          # For develop branch: use 'dev' prefix and short SHA
+          type=raw,value=dev-${{ github.sha }},enable=${{ inputs.is-develop == 'true' }}
+          type=raw,value=dev-latest,enable=${{ inputs.is-develop == 'true' && inputs.include-latest == 'true' }}
+          
+          # For version tags: use the tag as is
+          type=raw,value=${{ inputs.tag-version }},enable=${{ inputs.is-release == 'true' && inputs.tag-version != '' }}
+          type=raw,value=latest,enable=${{ inputs.is-release == 'true' && inputs.include-latest == 'true' }}

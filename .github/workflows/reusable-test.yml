@@ -1,0 +1,53 @@
+name: Reusable Test Workflow
+
+on:
+  workflow_call:
+    inputs:
+      package-filter:
+        description: 'The package filter to use with pnpm'
+        type: string
+        required: false
+        default: "@cbnsndwch/react-router-nest-server"
+      
+      test-command:
+        description: 'The test command to run'
+        type: string
+        required: false
+        default: "test:cov"
+      
+      build-command:
+        description: 'Command to build the app before testing'
+        type: string
+        required: false
+        default: "build:app"
+    
+    outputs:
+      tests_passed:
+        description: 'Whether all tests passed'
+        value: ${{ jobs.test.outputs.tests_passed }}
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    outputs:
+      tests_passed: ${{ steps.test-report.outputs.tests_passed }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js and pnpm
+        uses: ./.github/actions/setup-node-pnpm
+        with:
+          node-version-file: 'package.json'
+          install-deps: 'true'
+          frozen-lockfile: 'true'
+
+      - name: Run tests and generate reports
+        id: test-report
+        uses: ./.github/actions/test-report
+        with:
+          package-filter: ${{ inputs.package-filter }}
+          test-command: ${{ inputs.test-command }}
+          build-command: ${{ inputs.build-command }}

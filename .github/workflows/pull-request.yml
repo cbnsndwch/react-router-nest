@@ -1,0 +1,21 @@
+name: Pull Request
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+
+# Add permissions needed for PR comments
+permissions:
+  contents: read
+  pull-requests: write # Needed for commenting on PRs
+
+jobs:
+  test:
+    name: Run Tests
+    uses: ./.github/workflows/reusable-test.yml
+    with:
+      package-filter: "@cbnsndwch/react-router-nest-server"
+      test-command: "test:cov"
+      build-command: "build:app"
