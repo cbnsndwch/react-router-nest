@@ -1,6 +1,6 @@
 {
     "name": "@cbnsndwch/react-router-nest",
-    "version": "0.4.1",
+    "version": "0.4.2",
     "description": "React Router 7 x NestJS custom server",
     "private": true,
     "author": {
