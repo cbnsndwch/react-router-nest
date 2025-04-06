@@ -1,0 +1,53 @@
+name: 'Portainer Stack Redeploy'
+description: 'Redeploys a stack in Portainer CE using the API'
+inputs:
+  portainer_url:
+    description: 'URL of the Portainer server'
+    required: true
+  portainer_token:
+    description: 'Portainer API token'
+    required: true
+  portainer_environment:
+    description: 'Portainer environment ID (Docker Swarm environment)'
+    required: true
+  stack_id:
+    description: 'ID of the stack in Portainer'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Redeploy Portainer Stack
+      shell: bash
+      id: redeploy
+      run: |
+        # Execute the API call and capture both response body and status code
+        RESPONSE=$(curl -s -w "\n%{http_code}" -X PUT "${{ inputs.portainer_url }}/api/stacks/${{ inputs.stack_id }}/redeploy" \
+          -H "X-API-Key: ${{ inputs.portainer_token }}" \
+          -H "Content-Type: application/json" \
+          -d "{\"endpointId\": ${{ inputs.portainer_environment }}}")
+        
+        # Extract status code from the last line
+        HTTP_STATUS=$(echo "$RESPONSE" | tail -n1)
+        # Extract response body (excluding the status code line)
+        BODY=$(echo "$RESPONSE" | sed '$d')
+        
+        echo "HTTP Status: $HTTP_STATUS"
+        echo "Response body: $BODY"
+        
+        # Check if the request was successful
+        if [[ $HTTP_STATUS -ge 200 && $HTTP_STATUS -lt 300 ]]; then
+          echo "Stack redeployment triggered successfully!"
+          echo "status=success" >> $GITHUB_OUTPUT
+        else
+          echo "Failed to redeploy stack. HTTP status: $HTTP_STATUS"
+          echo "Response: $BODY"
+          echo "status=failed" >> $GITHUB_OUTPUT
+          exit 1
+        fi
+
+    - name: Notify Success
+      shell: bash
+      if: steps.redeploy.outputs.status == 'success'
+      run: |
+        echo "Stack redeployment was successful! Stack ID: ${{ inputs.stack_id }} in environment ${{ inputs.portainer_environment }}"

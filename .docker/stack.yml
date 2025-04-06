@@ -5,18 +5,18 @@ services:
     image: ghcr.io/cbnsndwch/react-router-nest-server:${TAG:-latest}
     restart: always
 
-    healthcheck:
-      retries: 3
-      interval: 30s
-      timeout: 10s
-      start_period: 15s
-      test:
-        - 'CMD'
-        - 'wget'
-        - '--quiet'
-        - '--tries=1'
-        - '--spider'
-        - 'http://localhost:3000/health'
+    # healthcheck:
+    #   retries: 3
+    #   interval: 30s
+    #   timeout: 10s
+    #   start_period: 15s
+    #   test:
+    #     - 'CMD'
+    #     - 'wget'
+    #     - '--quiet'
+    #     - '--tries=1'
+    #     - '--spider'
+    #     - 'http://localhost:3000/health'
 
     # Optional resource limits
     # deploy:
@@ -37,10 +37,11 @@ services:
 
       # Domain for external access (used in URLs)
       - APP_DOMAIN=${DOMAIN}
+      - SERVER_PORT=${SERVER_PORT:-4003}
 
     ports:
       # Map to a host port (adjust as needed)
-      - ${SERVER_PORT:-3030}:3000
+      - ${SERVER_PORT:-4003}:${SERVER_PORT:-4003}
 
     # Optional volume for persistent data
     # volumes:
