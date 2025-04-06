@@ -1,41 +1,30 @@
-name: 'Run Tests and Generate Reports'
-description: 'Runs tests with coverage and uploads results and reports'
+name: 'Test Report'
+description: 'Runs tests and generates a coverage report'
 
 inputs:
   package-filter:
-    description: 'The package filter to use with pnpm'
-    required: false
-    default: "@cbnsndwch/react-router-nest-server"
-  
+    description: 'Package to run tests for'
+    required: true
   test-command:
-    description: 'The test command to run'
+    description: 'Command to run tests'
+    required: true
+    default: 'test:cov'
+  build-command:
+    description: 'Command to build the app'
     required: false
-    default: "test:cov"
-  
+    default: 'build'
   test-results-path:
     description: 'Path to test results'
     required: false
-    default: "apps/server/test-results"
-  
+    default: 'test-results'
   coverage-path:
-    description: 'Path to coverage reports'
+    description: 'Path to coverage results'
     required: false
-    default: "apps/server/coverage"
-  
+    default: 'coverage'
   artifact-retention-days:
     description: 'Number of days to retain artifacts'
     required: false
-    default: "7"
-  
-  build-command:
-    description: 'Command to build the app before testing'
-    required: false
-    default: "build:app"
-
-outputs:
-  tests_passed:
-    description: 'Whether all tests passed'
-    value: ${{ steps.test_result.outputs.passed }}
+    default: '7'
 
 runs:
   using: 'composite'
@@ -44,53 +33,22 @@ runs:
       shell: bash
       run: pnpm ${{ inputs.build-command }}
 
-    - name: Run tests with coverage
+    - name: Run tests
       shell: bash
       run: pnpm --filter "${{ inputs.package-filter }}" ${{ inputs.test-command }}
 
     - name: Upload test results
       uses: actions/upload-artifact@v4
-      if: always()
       with:
         name: test-results
         path: ${{ inputs.test-results-path }}
         retention-days: ${{ inputs.artifact-retention-days }}
+        if-no-files-found: warn
 
-    - name: Upload coverage reports
+    - name: Upload coverage report
       uses: actions/upload-artifact@v4
-      if: success()
       with:
         name: coverage-report
         path: ${{ inputs.coverage-path }}
         retention-days: ${{ inputs.artifact-retention-days }}
-
-    - name: Set test result output
-      id: test_result
-      if: success()
-      shell: bash
-      run: echo "passed=true" >> $GITHUB_OUTPUT
-
-    - name: Find PR Comment
-      if: github.event_name == 'pull_request'
-      uses: peter-evans/find-comment@v3
-      id: find-comment
-      with:
-        issue-number: ${{ github.event.pull_request.number }}
-        comment-author: 'github-actions[bot]'
-        body-includes: Test Results
-
-    - name: Create or update PR comment with test results
-      if: github.event_name == 'pull_request'
-      uses: peter-evans/create-or-update-comment@v4
-      with:
-        comment-id: ${{ steps.find-comment.outputs.comment-id }}
-        issue-number: ${{ github.event.pull_request.number }}
-        body: |
-          ## Test Results
-
-          ✅ **Tests passed successfully!**
-
-          Coverage report is available as an artifact in this workflow run.
-
-          [View details in the CI/CD run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
-        edit-mode: replace
+        if-no-files-found: warn
