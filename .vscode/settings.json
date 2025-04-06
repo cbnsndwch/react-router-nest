@@ -45,6 +45,7 @@
         "codemods",
         "esbuild",
         "Googlebot",
+        "healthcheck",
         "isbot",
         "Pipeable",
         "vset",
