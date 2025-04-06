@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 _No unreleased changes yet._
 
+## [0.4.10](https://github.com/cbnsndwch/react-router-nest/compare/v0.4.9...v0.4.10) (2025-04-06)
+
 ## [0.4.9](https://github.com/cbnsndwch/react-router-nest/compare/v0.4.8...v0.4.9) (2025-04-06)
 
 ## [0.4.8](https://github.com/cbnsndwch/react-router-nest/compare/v0.4.7...v0.4.8) (2025-04-06)
