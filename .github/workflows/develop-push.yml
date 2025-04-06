@@ -8,7 +8,7 @@ on:
 # Add concurrency to ensure only one workflow runs at a time
 concurrency:
   group: develop-push-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 # Add permissions needed for GHCR
 permissions:
