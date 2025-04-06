@@ -1,11 +1,12 @@
 import fs from 'fs';
-import { join } from 'path';
+import path from 'path';
 
 import { sync as syncGlob } from 'glob';
 import _chain from 'lodash/chain';
 
 console.log(`CWD: ${process.cwd()}`);
 console.log(`DIRNAME: ${__dirname}`);
+console.log('')
 
 // TODO: change this to your organization name
 const ORG_NAME = '@cbnsndwch';
@@ -17,7 +18,9 @@ const workspaceDirs = [
     // and every workspace
     ...syncGlob('{apps,libs,packages}/*')
 ];
-console.log(workspaceDirs.join('\n'));
+console.log('checking for dependency version mismatches in these directories:');
+console.log(workspaceDirs.map(dir => `  - ${path.join('.', dir)}`).join('\n'));
+console.log('')
 
 type Dict<T> = Record<string, T>;
 
@@ -32,7 +35,7 @@ let dependencyMap: Record<string, Set<DependencyEntry>> = {};
 
 try {
     for (const workspaceDir of workspaceDirs) {
-        const packageJsonPath = join(
+        const packageJsonPath = path.join(
             process.cwd(),
             workspaceDir,
             'package.json'
@@ -110,7 +113,16 @@ try {
         JSON.stringify(plain, null, 4)
     );
 
-    console.log('done');
+    const mismatchCount = Object.keys(plain).length;
+    if (mismatchCount === 0) {
+        console.log('✅  no version mismatches found');
+    } else {
+        console.log(
+            `⚠️  found ${mismatchCount} packages with version mismatches,`,
+            `see details in ${path.resolve('.', 'dep-version-map.json')}`
+        );
+    }
 } catch (e) {
     console.error(e);
+    process.exit(1);
 }
