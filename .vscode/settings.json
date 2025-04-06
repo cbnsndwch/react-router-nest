@@ -47,6 +47,7 @@
         "Googlebot",
         "isbot",
         "Pipeable",
-        "vset"
+        "vset",
+        "vtag"
     ]
 }

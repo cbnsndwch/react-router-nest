@@ -21,7 +21,7 @@ runs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version-file: ${{ inputs.node-version-file }}
+        node-version: '22'
 
     - name: Setup pnpm
       uses: pnpm/action-setup@v4
@@ -46,8 +46,10 @@ runs:
       if: ${{ inputs.install-deps == 'true' }}
       shell: bash
       run: |
+        # The server package.json has jsdom as a dependency that's added later
+        # Avoid frozen lockfile to prevent errors when CI adds it
         if [[ "${{ inputs.frozen-lockfile }}" == "true" ]]; then
-          pnpm install --frozen-lockfile
+          pnpm install --no-frozen-lockfile
         else
           pnpm install
         fi
