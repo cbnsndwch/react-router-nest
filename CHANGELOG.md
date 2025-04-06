@@ -1,4 +1,11 @@
-# [Unreleased](https://github.com/cbnsndwch/react-router-nest/compare/v0.4.5...6f700c9af20042cb6a9cbf002d4be82fd9e5d35c) (2025-04-06)
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [0.4.6](https://github.com/cbnsndwch/react-router-nest/compare/v0.4.5...v0.4.6) (2025-04-06)
 
 ### Bug Fixes
 
