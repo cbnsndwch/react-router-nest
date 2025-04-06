@@ -41,9 +41,37 @@ jobs:
     name: Build & Push Docker Image
     needs: [validate-tag, test]
     if: ${{ needs.validate-tag.outputs.is-valid == 'true' && needs.test.outputs.tests_passed == 'true' }}
-    uses: ./.github/workflows/reusable-docker-build.yml
-    with:
-      push: true
-      tag-version: ${{ needs.validate-tag.outputs.version }}
-      is-release: true
-      include-latest: true
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Extract metadata for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/cbnsndwch/react-router-nest-server
+          tags: |
+            type=semver,pattern={{version}},value=v${{ needs.validate-tag.outputs.version }}
+            type=raw,value=latest
+      
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: apps/server
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
