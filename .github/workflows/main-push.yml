@@ -1,0 +1,19 @@
+name: Main Branch
+
+on:
+  push:
+    branches:
+      - main
+
+# Minimal permissions for test-only workflow
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Run Tests
+    uses: ./.github/workflows/reusable-test.yml
+    with:
+      package-filter: "@cbnsndwch/react-router-nest-server"
+      test-command: "test:cov"
+      build-command: "build:app"
