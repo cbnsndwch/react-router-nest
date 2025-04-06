@@ -1,6 +1,7 @@
 // add packages you don't want NCU to update here
 const reject = [
-    'turbo', // turbo ships codemods to help migrations
+    // turbo ships codemods to help migrations so we leave it alone
+    'turbo', 
 ];
 
 /**

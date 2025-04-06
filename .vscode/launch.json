@@ -20,6 +20,22 @@
             "envFile": "${workspaceFolder}/apps/server/.env.local",
             "console": "integratedTerminal",
             "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "type": "node",
+            "name": "Debug Dependency Versions Map Tool",
+            "request": "launch",
+            "runtimeExecutable": "tsx",
+            "runtimeArgs": [
+                "${workspaceRoot}/tools/dep-version-map.ts",
+            ],
+            "skipFiles": [
+                "<node_internals>/**",
+                "**/node_modules/@nestjs/**"
+            ],
+            "cwd": "${workspaceRoot}",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "openOnSessionStart"
         }
     ]
 }
