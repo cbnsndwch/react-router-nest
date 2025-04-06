@@ -1,6 +1,6 @@
 {
     "name": "@cbnsndwch/react-router-nest",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "description": "React Router 7 x NestJS custom server",
     "private": true,
     "author": {
@@ -24,7 +24,11 @@
         "lint:fix": "turbo run lint:fix",
         "test": "turbo run test",
         "deps": "tsx ./tools/dep-version-map.ts && code ./tools/dep-version-map.json",
-        "clog": "conventional-changelog -p angular -i CHANGELOG.md -o changelog-temp.md && changelog-temp.md"
+        "clog": "conventional-changelog -p angular -i CHANGELOG.md -o changelog-temp.md && changelog-temp.md",
+        "vpatch": "pnpm exec tsx ./tools/version-bump.ts patch",
+        "vminor": "pnpm exec tsx ./tools/version-bump.ts minor",
+        "vmajor": "pnpm exec tsx ./tools/version-bump.ts major",
+        "vset": "pnpm exec tsx ./tools/version-bump.ts"
     },
     "devDependencies": {
         "@types/estree": "^1.0.7",

@@ -46,6 +46,7 @@
         "esbuild",
         "Googlebot",
         "isbot",
-        "Pipeable"
+        "Pipeable",
+        "vset"
     ]
 }
