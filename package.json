@@ -1,7 +1,7 @@
 {
     "name": "@cbnsndwch/react-router-nest",
     "description": "React Router 7 x NestJS custom server",
-    "version": "0.4.10",
+    "version": "0.5.0",
     "license": "MIT",
     "private": true,
     "author": {
