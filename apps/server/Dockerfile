@@ -1,19 +1,25 @@
 # Stage 1: Build the application
 FROM node:22-alpine AS builder
 
-# Enable pnpm
+# Enable pnpm and set up cache
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
 
 WORKDIR /app
 
-# Copy the entire repository
+# Copy package.json and lockfile first to leverage Docker cache
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY apps/server/package.json ./apps/server/
+
+# Install dependencies using pnpm with store cache
+RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store pnpm install --frozen-lockfile
+
+# Copy the rest of the code
 COPY . .
 
-# Install dependencies and build
-RUN pnpm install --no-frozen-lockfile && \
-    pnpm --filter @cbnsndwch/react-router-nest-server run build
+# Build the application
+RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store pnpm --filter @cbnsndwch/react-router-nest-server run build
 
 # Stage 2: Production image
 FROM node:22-alpine
@@ -32,12 +38,15 @@ RUN corepack enable
 
 WORKDIR /app
 
-# Copy only what's needed for production
-COPY --from=builder /app/apps/server/dist /app/dist
+# Copy package.json and lockfile
 COPY --from=builder /app/apps/server/package.json /app/package.json
 
-# Install production dependencies
-RUN pnpm install --prod --no-frozen-lockfile
+# Install production dependencies using the same cache
+RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store pnpm install --prod --frozen-lockfile
+
+# Copy all built application artifacts
+COPY --from=builder /app/apps/server/dist /app/dist
+COPY --from=builder /app/apps/server/build /app/build
 
 # Expose the application port
 EXPOSE 3000
