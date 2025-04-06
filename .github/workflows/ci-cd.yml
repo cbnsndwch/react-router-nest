@@ -1,0 +1,179 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch: # Allow manual triggering
+
+# Add permissions needed for GHCR and PR comments
+permissions:
+  contents: read
+  packages: write
+  pull-requests: write  # Needed for commenting on PRs
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    outputs:
+      tests_passed: ${{ steps.test_result.outputs.passed }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: 'package.json'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: latest
+          run_install: false
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build application
+        run: pnpm build:app
+        
+      - name: Run tests with coverage
+        run: pnpm --filter "@cbnsndwch/react-router-nest-server" test:cov
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: apps/server/test-results
+          retention-days: 7
+          
+      - name: Upload coverage reports
+        uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: coverage-report
+          path: apps/server/coverage
+          retention-days: 7
+          
+      - name: Set test result output
+        id: test_result
+        if: success()
+        run: echo "passed=true" >> $GITHUB_OUTPUT
+        
+      - name: Find PR Comment
+        if: github.event_name == 'pull_request'
+        uses: peter-evans/find-comment@v3
+        id: find-comment
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: Test Results
+
+      - name: Create or update PR comment with test results
+        if: github.event_name == 'pull_request'
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          comment-id: ${{ steps.find-comment.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ## Test Results
+            
+            ✅ **Tests passed successfully!**
+            
+            Coverage report is available as an artifact in this workflow run.
+            
+            [View details in the CI/CD run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+          edit-mode: replace
+
+  build-and-push:
+    name: Build & Push Docker Image
+    needs: test
+    if: |
+      (github.event_name == 'push' && github.ref == 'refs/heads/main') ||
+      (github.event_name == 'workflow_dispatch') ||
+      (needs.test.outputs.tests_passed == 'true' && github.event_name == 'pull_request')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository_owner }}/react-router-nest-server
+          tags: |
+            type=sha,prefix=,suffix=,format=short
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=ref,event=pr
+            type=ref,event=branch
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./apps/server/Dockerfile
+          # Only push for main branch and manual triggers, just build (no push) for PRs
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      
+      - name: Find PR Comment for Docker
+        if: github.event_name == 'pull_request'
+        uses: peter-evans/find-comment@v3
+        id: find-docker-comment
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: Docker Build Status
+
+      - name: Update PR with Docker build status
+        if: github.event_name == 'pull_request'
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          comment-id: ${{ steps.find-docker-comment.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ## Docker Build Status
+            
+            ✅ **Docker image built successfully!**
+            
+            The image was built but not pushed to the registry (will be pushed when merged to main).
+            
+            Image tags that would be created:
+            ```
+            ${{ steps.meta.outputs.tags }}
+            ```
+          edit-mode: replace
