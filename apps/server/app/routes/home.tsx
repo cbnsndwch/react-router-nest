@@ -2,7 +2,6 @@ import type { AppService } from 'src/services';
 
 import type { Route } from './+types/home';
 
-
 export function meta() {
     return [{ title: 'Remix Notes' }];
 }
@@ -20,30 +19,114 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     // const user = useOptionalUser();
 
     return (
-        <main className="relative min-h-screen bg-white sm:flex sm:items-center sm:justify-center">
-            <div className="relative sm:pb-16 sm:pt-8">
-                <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <div className="relative shadow-xl sm:overflow-hidden sm:rounded-2xl">
-                        <div className="absolute inset-0">
-                            <div className="absolute inset-0 bg-amber-500/80 mix-blend-multiply" />
-                        </div>
-                        <div className="relative px-4 pb-8 pt-16 sm:px-6 sm:pb-14 sm:pt-24 lg:px-8 lg:pb-20 lg:pt-32">
-                            <h1 className="text-center text-6xl font-extrabold tracking-tight sm:text-8xl lg:text-9xl">
-                                <span className="block uppercase text-white drop-shadow-md">
-                                    {hello}
-                                </span>
-                            </h1>
-                            <p className="mx-auto mt-6 max-w-lg text-center text-xl text-white sm:max-w-3xl">
-                                <code>
-                                    @react-router/express + NestJS Custom Server!!!
-                                </code>
-                            </p>
-                            <img
-                                src="https://user-images.githubusercontent.com/1500684/158298926-e45dafff-3544-4b69-96d6-d3bcc33fc76a.svg"
-                                alt="Remix"
-                                className="mx-auto mt-16 w-full max-w-[12rem] md:max-w-[16rem]"
-                            />
-                        </div>
+        <main className="relative min-h-screen bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 flex items-center justify-center p-4">
+            <div className="bg-white shadow-xl rounded-2xl p-8 max-w-3xl w-full text-gray-800">
+                <h1 className="text-center text-4xl font-extrabold tracking-tight text-indigo-600 sm:text-5xl lg:text-6xl mb-6">
+                    <span className="block drop-shadow-sm">{hello}</span>
+                </h1>
+
+                <p className="text-lg text-center mb-8">
+                    Welcome to the{' '}
+                    <code className="bg-gray-100 p-1 rounded text-indigo-700">
+                        react-router-nest
+                    </code>{' '}
+                    template! This repository demonstrates how to integrate{' '}
+                    <a
+                        href="https://reactrouter.com/en/main"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-blue-800 font-medium underline"
+                    >
+                        React Router 7
+                    </a>{' '}
+                    with a{' '}
+                    <a
+                        href="https://nestjs.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-red-600 hover:text-red-800 font-medium underline"
+                    >
+                        NestJS
+                    </a>{' '}
+                    backend, leveraging server-side rendering (SSR)
+                    capabilities.
+                </p>
+
+                <div className="space-y-4 mb-8">
+                    <h2 className="text-2xl font-semibold text-gray-700">
+                        Key Integration Points:
+                    </h2>
+                    <ul className="list-disc list-inside space-y-2 text-gray-600">
+                        <li>
+                            <strong>NestJS Custom Server:</strong> We use
+                            NestJS's ability to serve static assets and handle
+                            dynamic requests. See the{' '}
+                            <a
+                                href="https://docs.nestjs.com/faq/http-adapter#use-another-http-server-instance"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-red-600 hover:text-red-800 underline"
+                            >
+                                NestJS HTTP Adapter docs
+                            </a>{' '}
+                            for more on custom server setups.
+                        </li>
+                        <li>
+                            <strong>React Router Server Rendering:</strong>{' '}
+                            Integration relies on React Router's SSR APIs like{' '}
+                            <code className="bg-gray-100 p-1 rounded text-sm">
+                                createStaticHandler
+                            </code>{' '}
+                            and{' '}
+                            <code className="bg-gray-100 p-1 rounded text-sm">
+                                createStaticRouter
+                            </code>
+                            . Explore the{' '}
+                            <a
+                                href="https://reactrouter.com/en/main/guides/ssr"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-600 hover:text-blue-800 underline"
+                            >
+                                React Router SSR Guide
+                            </a>
+                            .
+                        </li>
+                        <li>
+                            <strong>Vite Integration:</strong> The frontend
+                            assets are built and served using Vite, configured
+                            within the NestJS application.
+                        </li>
+                    </ul>
+                </div>
+
+                <div className="text-center space-y-4">
+                    <p className="text-lg font-medium">
+                        Enjoying the template?
+                    </p>
+                    <div className="flex justify-center space-x-4">
+                        <a
+                            rel="noopener noreferrer"
+                            target="_blank"
+                            href="https://github.com/cbnsndwch/react-router-nest" // Replace with actual repo URL if different
+                            className="inline-flex items-center gap-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                        >
+                            <span role="img" aria-label="Star emoji">
+                                ⭐
+                            </span>
+                            Star on GitHub
+                        </a>
+                        <a
+                            href="https://twitter.com/intent/tweet?text=Checking%20out%20this%20cool%20React%20Router%20%2B%20NestJS%20template%20by%20%40cbnsndwch!%0A%0Ahttps%3A%2F%2Fgithub.com%2Fcbnsndwch%2Freact-router-nest" // Replace with actual repo URL if different
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                        >
+                            <span role="img" aria-label="Thank You emoji">
+                                🙏
+                            </span>
+                            Shout out <code>@cbnsndwch</code> on X
+                        </a>
                     </div>
                 </div>
             </div>

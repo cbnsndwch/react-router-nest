@@ -23,6 +23,23 @@
         },
         {
             "type": "node",
+            "name": "Start Server",
+            "request": "launch",
+            "runtimeExecutable": "pnpm",
+            "runtimeArgs": [
+                "dev"
+            ],
+            "skipFiles": [
+                "<node_internals>/**",
+                "**/node_modules/@nestjs/**"
+            ],
+            "cwd": "${workspaceRoot}/apps/server",
+            "envFile": "${workspaceFolder}/apps/server/.env.local",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "type": "node",
             "name": "Debug Dependency Versions Map Tool",
             "request": "launch",
             "runtimeExecutable": "tsx",

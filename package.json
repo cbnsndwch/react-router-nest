@@ -15,9 +15,9 @@
     },
     "scripts": {
         "clean": "turbo run clean",
+        "dev:all": "turbo run dev",
         "build:all": "turbo run build",
-        "build:web": "turbo run build --filter=\"./apps/web\"",
-        "build:api": "turbo run build --filter=\"./apps/api\"",
+        "build:app": "turbo run build --filter=\"./apps/server\"",
         "build:libs": "turbo run build --filter=\"./libs/*\"",
         "format": "turbo run format",
         "lint": "turbo run lint",

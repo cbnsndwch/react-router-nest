@@ -2,9 +2,9 @@
  
 import path from 'node:path';
 
+import { static as expressStatic } from 'express';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { createRequestHandler } from '@react-router/express';
-import { static as expressStatic } from 'express';
 
 // sensible defaults for most Nest apps
 const DEFAULT_NEST_PATHS = ['/api', '/graphql'];
