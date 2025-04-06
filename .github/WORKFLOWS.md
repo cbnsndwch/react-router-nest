@@ -91,6 +91,22 @@ Important Docker build configuration:
 - Dockerfile path is explicitly set to `apps/server/Dockerfile`
 - Cache is enabled for faster builds using GitHub Actions cache
 
+### Simplified Dockerfile Structure
+
+The Dockerfile has been simplified to use a two-stage build approach:
+
+1. **Builder Stage**:
+   - Uses Node.js 22 Alpine as the base image
+   - Copies the entire repository into the container
+   - Installs dependencies with `--no-frozen-lockfile` to avoid dependency conflicts
+   - Builds the application using the pnpm filter
+
+2. **Production Stage**:
+   - Uses a fresh Node.js Alpine image
+   - Copies only the built application and package.json
+   - Installs only production dependencies
+   - Results in a smaller final image with no build tools or source code
+
 ## Badges
 
 Workflow status can be displayed in the README.md using the following badge:
