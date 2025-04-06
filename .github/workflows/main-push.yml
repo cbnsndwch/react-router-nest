@@ -5,6 +5,11 @@ on:
     branches:
       - main
 
+# Add concurrency to ensure only one workflow runs at a time
+concurrency:
+  group: main-push-${{ github.ref }}
+  cancel-in-progress: false
+
 # Minimal permissions for test-only workflow
 permissions:
   contents: read

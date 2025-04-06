@@ -5,6 +5,11 @@ on:
     branches:
       - develop
 
+# Add concurrency to ensure only one workflow runs at a time
+concurrency:
+  group: develop-push-${{ github.ref }}
+  cancel-in-progress: false
+
 # Add permissions needed for GHCR
 permissions:
   contents: read

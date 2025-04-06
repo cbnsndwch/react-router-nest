@@ -6,6 +6,11 @@ on:
       - main
       - develop
 
+# Add concurrency to ensure only one workflow runs at a time per PR
+concurrency:
+  group: pull-request-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 # Add permissions needed for PR comments
 permissions:
   contents: read
