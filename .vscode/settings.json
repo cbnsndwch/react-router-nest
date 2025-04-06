@@ -41,6 +41,7 @@
         "**/.turbo/**": true,
     },
     "cSpell.words": [
+        "Buildx",
         "codemods",
         "esbuild",
         "isbot",
