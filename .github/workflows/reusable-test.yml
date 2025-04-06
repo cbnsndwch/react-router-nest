@@ -40,9 +40,6 @@ jobs:
           install-deps: true
           frozen-lockfile: true
       
-      - name: Install jsdom for Vitest DOM testing
-        run: pnpm add -D jsdom --filter "${{ inputs.package-filter }}"
-      
       - name: Build application
         run: pnpm ${{ inputs.build-command }}
       

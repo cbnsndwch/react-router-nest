@@ -26,5 +26,6 @@ jobs:
     uses: ./.github/workflows/reusable-docker-build.yml
     with:
       push: true
-      is-develop: true
-      include-latest: true
+      tag-version: "dev"
+      is-release: false
+      include-latest: false
