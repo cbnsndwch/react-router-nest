@@ -5,106 +5,69 @@ on:
     inputs:
       push:
         description: 'Whether to push the Docker image'
+        required: false
         type: boolean
-        required: false
         default: false
-      
-      dockerfile:
-        description: 'Path to the Dockerfile'
-        type: string
-        required: false
-        default: './apps/server/Dockerfile'
-      
-      context:
-        description: 'Docker build context'
-        type: string
-        required: false
-        default: '.'
-      
-      image-name:
-        description: 'The base name of the Docker image'
-        type: string
-        required: false
-        default: ''
-      
       tag-version:
-        description: 'Version to use for tagging (without v prefix)'
+        description: 'The version to tag the Docker image with'
+        required: true
         type: string
-        required: false
-        default: ''
-      
-      is-develop:
-        description: 'Whether this is a develop branch build'
-        type: boolean
-        required: false
-        default: false
-      
       is-release:
-        description: 'Whether this is a release tag build'
-        type: boolean
+        description: 'Whether this is a release build'
         required: false
+        type: boolean
         default: false
-      
       include-latest:
-        description: 'Whether to include the latest tag'
-        type: boolean
+        description: 'Whether to also tag with latest'
         required: false
+        type: boolean
         default: false
-    
-    outputs:
-      tags:
-        description: 'Generated Docker tags'
-        value: ${{ jobs.build-and-push.outputs.tags }}
+      registry:
+        description: 'Docker registry to use'
+        required: false
+        type: string
+        default: 'ghcr.io'
+      image-name:
+        description: 'Name of the Docker image'
+        required: false
+        type: string
+        default: 'cbnsndwch/react-router-nest-server'
 
 jobs:
-  build-and-push:
-    name: Build & Push Docker Image
+  build:
+    name: Build Docker Image
     runs-on: ubuntu-latest
-    outputs:
-      tags: ${{ steps.docker-metadata.outputs.tags }}
-
+    
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
-
+      
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-
+      
       - name: Log in to GitHub Container Registry
-        if: ${{ inputs.push }}
+        if: inputs.push == true
         uses: docker/login-action@v3
         with:
-          registry: ghcr.io
+          registry: ${{ inputs.registry }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Set default image name if not provided
-        id: set-image-name
-        shell: bash
-        run: |
-          if [[ -z "${{ inputs.image-name }}" ]]; then
-            echo "IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/react-router-nest-server" >> $GITHUB_OUTPUT
-          else
-            echo "IMAGE_NAME=${{ inputs.image-name }}" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Generate Docker tags and labels
-        id: docker-metadata
-        uses: ./.github/actions/docker-metadata
+      
+      - name: Extract metadata for Docker
+        id: meta
+        uses: docker/metadata-action@v5
         with:
-          image-name: ${{ steps.set-image-name.outputs.IMAGE_NAME }}
-          tag-version: ${{ inputs.tag-version }}
-          is-develop: ${{ inputs.is-develop }}
-          is-release: ${{ inputs.is-release }}
-          include-latest: ${{ inputs.include-latest }}
-
+          images: ${{ inputs.registry }}/${{ inputs.image-name }}
+          tags: |
+            type=semver,pattern={{version}},value=v${{ inputs.tag-version }}
+            type=raw,value=latest,enable=${{ inputs.include-latest }}
+      
       - name: Build and push Docker image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v5
         with:
-          context: ${{ inputs.context }}
-          file: ${{ inputs.dockerfile }}
+          context: apps/server
           push: ${{ inputs.push }}
-          tags: ${{ steps.docker-metadata.outputs.tags }}
-          labels: ${{ steps.docker-metadata.outputs.labels }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max

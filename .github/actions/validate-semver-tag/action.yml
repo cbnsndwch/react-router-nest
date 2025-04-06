@@ -1,58 +1,31 @@
 name: 'Validate Semver Tag'
-description: 'Validates that a git tag follows proper semver format'
+description: 'Validates if the tag follows semantic versioning format'
 
 outputs:
-  version:
-    description: 'The version number without the v prefix'
-    value: ${{ steps.extract-version.outputs.version }}
-  
   is-valid:
     description: 'Whether the tag is a valid semver tag'
-    value: ${{ steps.validate-semver.outputs.is-valid }}
-  
+    value: ${{ steps.validate.outputs.is_valid }}
+  version:
+    description: 'The version number without the v prefix'
+    value: ${{ steps.validate.outputs.version }}
   tag:
-    description: 'The original tag name'
-    value: ${{ steps.extract-tag.outputs.tag }}
+    description: 'The original tag'
+    value: ${{ steps.validate.outputs.tag }}
 
 runs:
   using: 'composite'
   steps:
-    - name: Extract tag name
-      id: extract-tag
+    - name: Check if tag matches semver pattern
+      id: validate
       shell: bash
       run: |
-        TAG=${GITHUB_REF#refs/tags/}
-        echo "tag=$TAG" >> $GITHUB_OUTPUT
-        echo "Processing tag: $TAG"
-
-    - name: Validate semver format
-      id: validate-semver
-      shell: bash
-      run: |
-        TAG="${{ steps.extract-tag.outputs.tag }}"
-        
-        # Check if tag starts with 'v' and is followed by valid semver
-        if [[ $TAG =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?(\+[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?$ ]]; then
-          echo "Tag $TAG is a valid semver tag"
-          echo "is-valid=true" >> $GITHUB_OUTPUT
+        if [[ "${{ github.ref }}" =~ ^refs/tags/v([0-9]+\.[0-9]+\.[0-9]+)$ ]]; then
+          echo "is_valid=true" >> $GITHUB_OUTPUT
+          echo "version=${BASH_REMATCH[1]}" >> $GITHUB_OUTPUT
+          echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+          echo "✅ Valid semver tag: v${BASH_REMATCH[1]}"
         else
-          echo "Tag $TAG is not a valid semver tag"
-          echo "is-valid=false" >> $GITHUB_OUTPUT
+          echo "is_valid=false" >> $GITHUB_OUTPUT
+          echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+          echo "❌ Invalid semver tag: ${GITHUB_REF#refs/tags/}"
         fi
-
-    - name: Extract version number
-      id: extract-version
-      shell: bash
-      run: |
-        TAG="${{ steps.extract-tag.outputs.tag }}"
-        
-        # Skip extraction if tag is invalid
-        if [[ "${{ steps.validate-semver.outputs.is-valid }}" != "true" ]]; then
-          echo "version=" >> $GITHUB_OUTPUT
-          exit 0
-        fi
-        
-        # Remove 'v' prefix to get the version number
-        VERSION=${TAG#v}
-        echo "Extracted version: $VERSION"
-        echo "version=$VERSION" >> $GITHUB_OUTPUT

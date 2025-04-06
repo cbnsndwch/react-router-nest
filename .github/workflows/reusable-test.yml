@@ -4,26 +4,22 @@ on:
   workflow_call:
     inputs:
       package-filter:
-        description: 'The package filter to use with pnpm'
+        description: 'Package to run tests for'
+        required: true
         type: string
-        required: false
-        default: "@cbnsndwch/react-router-nest-server"
-      
       test-command:
-        description: 'The test command to run'
+        description: 'Command to run tests'
+        required: true
         type: string
-        required: false
-        default: "test:cov"
-      
+        default: 'test'
       build-command:
-        description: 'Command to build the app before testing'
-        type: string
+        description: 'Command to build the app'
         required: false
-        default: "build:app"
-    
+        type: string
+        default: 'build'
     outputs:
       tests_passed:
-        description: 'Whether all tests passed'
+        description: "Whether tests passed"
         value: ${{ jobs.test.outputs.tests_passed }}
 
 jobs:
@@ -31,23 +27,50 @@ jobs:
     name: Run Tests
     runs-on: ubuntu-latest
     outputs:
-      tests_passed: ${{ steps.test-report.outputs.tests_passed }}
-
+      tests_passed: ${{ steps.test-status.outputs.tests_passed }}
+    
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
-
+      
       - name: Setup Node.js and pnpm
         uses: ./.github/actions/setup-node-pnpm
         with:
-          node-version-file: 'package.json'
-          install-deps: 'true'
-          frozen-lockfile: 'true'
-
-      - name: Run tests and generate reports
-        id: test-report
-        uses: ./.github/actions/test-report
+          node-version-file: package.json
+          install-deps: true
+          frozen-lockfile: true
+      
+      - name: Install jsdom for Vitest DOM testing
+        run: pnpm add -D jsdom --filter "${{ inputs.package-filter }}"
+      
+      - name: Build application
+        run: pnpm ${{ inputs.build-command }}
+      
+      - name: Run tests
+        id: run-tests
+        run: pnpm --filter "${{ inputs.package-filter }}" ${{ inputs.test-command }}
+        continue-on-error: true
+      
+      - name: Set test status
+        id: test-status
+        run: echo "tests_passed=${{ steps.run-tests.outcome == 'success' }}" >> $GITHUB_OUTPUT
+      
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
         with:
-          package-filter: ${{ inputs.package-filter }}
-          test-command: ${{ inputs.test-command }}
-          build-command: ${{ inputs.build-command }}
+          name: test-results
+          path: apps/server/test-results
+          retention-days: 7
+          if-no-files-found: warn
+      
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: apps/server/coverage
+          retention-days: 7
+          if-no-files-found: warn
+      
+      - name: Fail workflow if tests failed
+        if: steps.run-tests.outcome != 'success'
+        run: exit 1
