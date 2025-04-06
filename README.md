@@ -34,6 +34,17 @@ This demo shows how to leverage modern routing and server-side rendering from Re
 - Visit `http://localhost:4003` in your browser to view the application
 - Send a GET request to `http://localhost:4003/api/hello` to test the API
 
+### Docker Deployment
+
+The project includes Docker support with multi-architecture images (amd64/arm64):
+
+- Docker images are published to GitHub Container Registry: `ghcr.io/cbnsndwch/react-router-nest-server`
+- A Docker Swarm stack configuration is available in `.docker/stack.yml`
+
+For more information:
+- See [Docker Image Guidelines](.github/DOCKER.md) for details on the Docker images
+- See [Docker Stack Documentation](.docker/README.md) for deployment instructions
+
 ## Contributing
 
 We welcome contributions from the community! Please consider the following:
