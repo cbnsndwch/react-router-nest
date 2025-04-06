@@ -47,8 +47,21 @@ module.exports = [
             'import/order': [
                 'warn',
                 {
-                    groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
-                    'newlines-between': 'always'
+                    'newlines-between': 'always-and-inside-groups',
+                    groups: [
+                        // built-in types are first
+                        'builtin',
+                        // then external modules
+                        'external',
+                        // then parent types
+                        'parent',
+                        // then siblings
+                        'sibling',
+                        // Then the index file
+                        'index',
+                        // Then the rest: internal and external type
+                        'object',
+                    ]
                 }
             ],
             'import/newline-after-import': 'warn'
@@ -70,7 +83,7 @@ module.exports = [
                 browser: true,
                 es6: true,
                 node: true
-            },
+            }
         },
         plugins: {
             '@typescript-eslint': require('@typescript-eslint/eslint-plugin'),
@@ -84,7 +97,14 @@ module.exports = [
             'import/order': [
                 'warn',
                 {
-                    groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
+                    groups: [
+                        'builtin',
+                        'external',
+                        'internal',
+                        'parent',
+                        'sibling',
+                        'index'
+                    ],
                     'newlines-between': 'always'
                 }
             ],

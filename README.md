@@ -1,5 +1,7 @@
 # @cbnsndwch/react-router-nest
 
+[![CI/CD Pipeline](https://github.com/cbnsndwch/react-router-nest/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/cbnsndwch/react-router-nest/actions/workflows/ci-cd.yml)
+
 `React Router 7` x `NestJS` custom server template for `Turbo` + `PNPM` monorepos
 
 ## Description

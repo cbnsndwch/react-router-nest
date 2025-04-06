@@ -4,3 +4,6 @@ packages:
 onlyBuiltDependencies:
   - '@swc/core'
   - esbuild
+ignoredBuiltDependencies:
+  - '@nestjs/core'
+  - '@scarf/scarf'

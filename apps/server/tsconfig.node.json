@@ -9,6 +9,10 @@
             "DOM.Iterable",
             "ESNext.AsyncIterable"
         ],
+        "types": [
+            "node",
+            "vitest",
+        ],
         "outDir": "build",
         "baseUrl": ".",
         "esModuleInterop": true,
