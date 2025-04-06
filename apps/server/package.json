@@ -47,6 +47,7 @@
         "joi": "^17.13.3",
         "jwks-rsa": "^3.2.0",
         "lodash": "4.17.21",
+        "lucide-react": "^0.487.0",
         "mongoose": "^8.13.2",
         "passport": "^0.7.0",
         "passport-jwt": "^4.0.1",

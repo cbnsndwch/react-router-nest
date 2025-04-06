@@ -1,9 +1,15 @@
+import type { MetaDescriptor } from 'react-router';
+import { StarIcon } from 'lucide-react';
+
 import type { AppService } from 'src/services';
+import { XLogoIcon } from 'app/components/logos/X';
 
 import type { Route } from './+types/home';
 
 export function meta() {
-    return [{ title: 'Remix Notes' }];
+    return [
+        { title: 'React Router 7 + NestJS Custom Server • cbnsndwch OSS' }
+    ] satisfies MetaDescriptor[];
 }
 
 export async function loader({ context }: LoaderFunctionArgs) {
@@ -106,26 +112,22 @@ export default function Home({ loaderData }: Route.ComponentProps) {
                     </p>
                     <div className="flex justify-center space-x-4">
                         <a
-                            rel="noopener noreferrer"
                             target="_blank"
+                            rel="noopener noreferrer"
                             href="https://github.com/cbnsndwch/react-router-nest" // Replace with actual repo URL if different
                             className="inline-flex items-center gap-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
                         >
-                            <span role="img" aria-label="Star emoji">
-                                ⭐
-                            </span>
+                            <StarIcon className="size-5 text-amber-500 fill-amber-500" />
                             Star on GitHub
                         </a>
                         <a
-                            href="https://twitter.com/intent/tweet?text=Checking%20out%20this%20cool%20React%20Router%20%2B%20NestJS%20template%20by%20%40cbnsndwch!%0A%0Ahttps%3A%2F%2Fgithub.com%2Fcbnsndwch%2Freact-router-nest" // Replace with actual repo URL if different
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            href="https://twitter.com/intent/tweet?text=Checking%20out%20this%20cool%20React%20Router%20%2B%20NestJS%20template%20by%20%40cbnsndwch!%0A%0Ahttps%3A%2F%2Fgithub.com%2Fcbnsndwch%2Freact-router-nest"
+                            className="inline-flex items-center gap-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
                         >
-                            <span role="img" aria-label="Thank You emoji">
-                                🙏
-                            </span>
-                            Shout out <code>@cbnsndwch</code> on X
+                            <XLogoIcon className="size-5" />
+                            Shout out @cbnsndwch on X
                         </a>
                     </div>
                 </div>
