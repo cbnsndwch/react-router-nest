@@ -13,7 +13,7 @@ COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY apps/server/package.json ./apps/server/
 
 # Install dependencies using pnpm with store cache
-RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store pnpm install --frozen-lockfile
+RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store pnpm install --no-frozen-lockfile
 
 # Copy the rest of the code
 COPY . .
@@ -42,7 +42,7 @@ WORKDIR /app
 COPY --from=builder /app/apps/server/package.json /app/package.json
 
 # Install production dependencies using the same cache
-RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store pnpm install --prod --frozen-lockfile
+RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store pnpm install --prod --no-frozen-lockfile
 
 # Copy all built application artifacts
 COPY --from=builder /app/apps/server/dist /app/dist
