@@ -34,16 +34,16 @@
     },
     "devDependencies": {
         "@types/estree": "^1.0.8",
+        "@types/lodash": "4.17.20",
         "@types/node": "^22",
         "conventional-changelog-cli": "^5.0.0",
-        "npm-check-updates": "^18.0.1",
         "glob": "^11.0.3",
         "lodash": "4.17.21",
-        "@types/lodash": "4.17.20",
+        "npm-check-updates": "^18.0.1",
         "prettier": "^3.6.2",
-        "turbo": "~2.5.0",
-        "typescript": "~5.8.3",
-        "tsx": "~4.20.3"
+        "tsx": "~4.20.3",
+        "turbo": "~2.5.4",
+        "typescript": "~5.8.3"
     },
     "packageManager": "pnpm@10.13.1"
 }
