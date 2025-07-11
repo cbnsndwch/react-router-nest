@@ -20,9 +20,10 @@
         "prod": "node dist/main",
         "format": "prettier --write {app,src}/**/*.{ts,tsx}",
         "lint": "eslint \"./{src,app}/**/*.{ts,tsx}\" --fix",
-        "test": "vitest",
-        "test:watch": "vitest --watch",
+        "test": "vitest run",
         "test:cov": "vitest --coverage",
+        "test:ui": "vitest --ui",
+        "test:watch": "vitest --watch",
         "types": "react-router typegen"
     },
     "dependencies": {
@@ -43,6 +44,7 @@
         "class-validator": "^0.14.1",
         "cross-env": "^7.0.3",
         "express": "^5.1.0",
+        "nanoid": "^5.1.5",
         "isbot": "^5.1.25",
         "joi": "^17.13.3",
         "jwks-rsa": "^3.2.0",

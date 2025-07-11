@@ -84,7 +84,7 @@ function main() {
     // Get the current version from the root package.json
     const currentVersion = readRootVersion();
     
-    // If no argument provided, just display current version
+    // If no argument provided, display current root package.json version
     if (!arg) {
         console.log(`Current version: ${currentVersion}`);
         return;

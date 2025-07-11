@@ -26,11 +26,11 @@
         "deps": "tsx ./tools/dep-version-map.ts && code ./tools/dep-version-map.json",
         "clog": "tsx ./tools/update-changelog.ts",
         "clog:regenerate": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 -t v",
-        "vpatch": "pnpm exec tsx ./tools/version-bump.ts patch",
-        "vminor": "pnpm exec tsx ./tools/version-bump.ts minor",
-        "vmajor": "pnpm exec tsx ./tools/version-bump.ts major",
-        "vset": "pnpm exec tsx ./tools/version-bump.ts",
-        "vtag": "pnpm exec tsx ./tools/create-version-tag.ts"
+        "vpatch": "tsx ./tools/version-bump.ts patch",
+        "vminor": "tsx ./tools/version-bump.ts minor",
+        "vmajor": "tsx ./tools/version-bump.ts major",
+        "vset": "tsx ./tools/version-bump.ts",
+        "vtag": "tsx ./tools/create-version-tag.ts"
     },
     "devDependencies": {
         "@types/estree": "^1.0.7",
