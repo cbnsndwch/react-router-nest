@@ -1,9 +1,13 @@
 packages:
   - apps/*
   - libs/*
-onlyBuiltDependencies:
-  - '@swc/core'
-  - esbuild
+
 ignoredBuiltDependencies:
   - '@nestjs/core'
   - '@scarf/scarf'
+
+onlyBuiltDependencies:
+  - '@swc/core'
+  - '@tailwindcss/oxide'
+  - esbuild
+  - unrs-resolver

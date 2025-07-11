@@ -2,6 +2,7 @@
 const reject = [
     // turbo ships codemods to help migrations so we leave it alone
     'turbo', 
+    '@types/node'
 ];
 
 /**
