@@ -47,6 +47,7 @@
         "Googlebot",
         "healthcheck",
         "isbot",
+        "nodenext",
         "Pipeable",
         "vset",
         "vtag"
