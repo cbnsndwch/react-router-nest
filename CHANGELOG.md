@@ -87,17 +87,11 @@ _No unreleased changes yet._
 
 * add concurrency settings to workflow files ([61f9b63](https://github.com/cbnsndwch/react-router-nest/commit/61f9b63))
 
-### Maintenance
-
-
 ## [0.4.7](https://github.com/cbnsndwch/react-router-nest/compare/v0.4.6...v0.4.7) (2025-04-06)
 
 ### Continuous Integration
 
 * add Docker image guidelines and update README for Docker deployment instructions ([573cdca](https://github.com/cbnsndwch/react-router-nest/commit/573cdca))
-
-### Maintenance
-
 
 ## [0.4.6](https://github.com/cbnsndwch/react-router-nest/compare/v0.4.5...v0.4.6) (2025-04-06)
 
