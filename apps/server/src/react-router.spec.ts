@@ -18,10 +18,14 @@ vi.mock('express', () => ({
 }));
 
 vi.mock('node:path', async () => {
-    const actual = await vi.importActual('node:path');
-    return {
+    const actual = await vi.importActual<any>('node:path');
+    const mockedpPath = {
         ...actual,
         resolve: vi.fn().mockReturnValue('mocked-build-path')
+    };
+    return {
+        ...mockedpPath,
+        default: mockedpPath,
     };
 });
 
