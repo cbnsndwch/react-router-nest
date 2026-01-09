@@ -7,9 +7,9 @@ type VersionPart = 'major' | 'minor' | 'patch';
 
 // Check if a string is a valid semver version (e.g., 1.2.3)
 const isValidSemVer = (version: string): boolean => {
-  // Simple semver regex pattern: major.minor.patch
-  // This supports basic semver like 1.2.3 but not pre-release or build metadata
-  return /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/.test(version);
+    // Simple semver regex pattern: major.minor.patch
+    // This supports basic semver like 1.2.3 but not pre-release or build metadata
+    return /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/.test(version);
 };
 
 // Get the current root version
@@ -80,30 +80,30 @@ function main() {
     // Get the argument from command line
     const arg = process.argv[2];
     const validBumpTypes: VersionPart[] = ['major', 'minor', 'patch'];
-    
+
     // Get the current version from the root package.json
     const currentVersion = readRootVersion();
-    
+
     // If no argument provided, display current root package.json version
     if (!arg) {
         console.log(`Current version: ${currentVersion}`);
         return;
     }
-    
+
     let newVersion: string;
     let displayMessage: string;
-    
+
     // Check if the argument is a specific version
     if (isValidSemVer(arg)) {
         newVersion = arg;
         displayMessage = `Setting version: ${currentVersion} -> ${newVersion}`;
-    } 
+    }
     // Check if it's a valid bump type
     else if (validBumpTypes.includes(arg as VersionPart)) {
         const bumpType = arg as VersionPart;
         newVersion = getNewVersion(currentVersion, bumpType);
         displayMessage = `Bumping version: ${currentVersion} -> ${newVersion} (${bumpType})`;
-    } 
+    }
     // Invalid argument
     else {
         console.error(
@@ -111,7 +111,7 @@ function main() {
         );
         process.exit(1);
     }
-    
+
     console.log(displayMessage);
 
     // Get all package.json files
