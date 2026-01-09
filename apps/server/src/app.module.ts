@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 
-import { controllers } from './controllers';
-import { services } from './services';
+import { controllers } from './controllers/index.js';
+import { services } from './services/index.js';
 
 @Module({
     imports: [],

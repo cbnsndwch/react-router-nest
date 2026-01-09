@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 
-import { AppService, HELLO_MESSAGE } from './app.service';
+import { AppService, HELLO_MESSAGE } from './app.service.js';
 
 describe('AppService', () => {
     let service: AppService;

@@ -2,7 +2,7 @@ import { describe, beforeAll, afterAll, it, expect } from 'vitest';
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 
-import { AppModule } from './app.module';
+import { AppModule } from './app.module.js';
 
 describe('NestJS Application', () => {
     let app: INestApplication;

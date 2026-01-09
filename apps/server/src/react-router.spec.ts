@@ -33,8 +33,8 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { Test } from '@nestjs/testing';
 import { NestExpressApplication } from '@nestjs/platform-express';
 
-import { AppModule } from './app.module';
-import { mountReactRouterHandler } from './react-router';
+import { AppModule } from './app.module.js';
+import { mountReactRouterHandler } from './react-router.js';
 
 describe('React Router Integration', () => {
     let app: NestExpressApplication;

@@ -2,9 +2,9 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 
-import { AppModule } from './app.module';
-import { mountReactRouterHandler } from './react-router';
-import { makeTable } from './utils';
+import { AppModule } from './app.module.js';
+import { mountReactRouterHandler } from './react-router.js';
+import { makeTable } from './utils/index.js';
 
 const PORT = process.env.SERVER_PORT || 4003;
 const PUBLIC_URL = process.env.SERVER_PUBLIC_URL || `http://localhost:${PORT}`;
