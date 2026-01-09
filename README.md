@@ -12,13 +12,12 @@ A [Turbo] + [PNPM] monorepo demonstrating how to run [React Router 7] on a [Nest
 
 This demo shows how to leverage modern routing and server-side rendering from React Router 7 while keeping the NestJS backend robust and scalable.
 
-
 ## Repository Structure
 
 - apps/
-    - server: NestJS custom server integrated with React Router 7
+  - server: NestJS custom server integrated with React Router 7
 - libs/
-    - (empty): Intended location for app-specific libraries
+  - (empty): Intended location for app-specific libraries
 
 ## Getting Started
 
@@ -42,12 +41,14 @@ The project includes Docker support with multi-architecture images (amd64/arm64)
 - A Docker Swarm stack configuration is available in `.docker/stack.yml`
 
 For more information:
+
 - See [Docker Image Guidelines](docs/DOCKER.md) for details on the Docker images
 - See [Docker Stack Documentation](.docker/README.md) for deployment instructions
 
 ## Contributing
 
 We welcome contributions from the community! Please consider the following:
+
 - Follow the code style and linting guidelines.
 - Write clear commit messages.
 - Include tests for new features or bug fixes.

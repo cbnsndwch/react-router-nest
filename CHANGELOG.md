@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 _No unreleased changes yet._
 
-# [0.5.0](https://github.com/cbnsndwch/react-router-nest/compare/v0.4.9...v0.5.0) (2025-04-06)
+## [0.5.0](https://github.com/cbnsndwch/react-router-nest/compare/v0.4.9...v0.5.0) (2025-04-06)
 
 ## [0.4.9](https://github.com/cbnsndwch/react-router-nest/compare/v0.4.8...v0.4.9) (2025-04-06)
 
@@ -60,7 +60,7 @@ _No unreleased changes yet._
 * update home page with new meta title and enhance GitHub/X links with icons ([c755289](https://github.com/cbnsndwch/react-router-nest/commit/c755289ed58067c551c92583a000d5e9402d5390))
 * update version to 0.4.0 and add version bump script ([e4df29b](https://github.com/cbnsndwch/react-router-nest/commit/e4df29be3dad1027ae03e95cb4079a9c2c9f4226))
 
-# [0.3.0](https://github.com/cbnsndwch/react-router-nest/compare/d1b396fa288173f2546664f51d6c69712335fc67...v0.3.0) (2025-04-05)
+## [0.3.0](https://github.com/cbnsndwch/react-router-nest/compare/d1b396fa288173f2546664f51d6c69712335fc67...v0.3.0) (2025-04-05)
 
 ### Features
 
