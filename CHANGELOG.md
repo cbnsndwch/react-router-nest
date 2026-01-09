@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 _No unreleased changes yet._
 
+## [0.7.1](https://github.com/cbnsndwch/react-router-nest/compare/v0.7.0...v0.7.1) (2026-01-09)
+
+### Code Refactoring
+
+* **apps/server:** add explicit `"type": "module"` in `package.json` ([298b6e8](https://github.com/cbnsndwch/react-router-nest/commit/298b6e8))
+* **apps/server:** add .js extensions for esm compatibility ([172c888](https://github.com/cbnsndwch/react-router-nest/commit/172c888))
+
 ## [0.7.0](https://github.com/cbnsndwch/react-router-nest/compare/v0.6.1...v0.7.0) (2026-01-09)
 
 ### Maintenance
