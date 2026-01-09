@@ -49,6 +49,7 @@
         "isbot",
         "nodenext",
         "Pipeable",
+        "swcrc",
         "vset",
         "vtag"
     ]
