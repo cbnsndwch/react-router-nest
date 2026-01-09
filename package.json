@@ -1,7 +1,7 @@
 {
     "name": "@cbnsndwch/react-router-nest",
     "description": "React Router 7 x NestJS custom server",
-    "version": "0.6.1",
+    "version": "0.7.0",
     "license": "MIT",
     "private": true,
     "author": {
@@ -34,16 +34,17 @@
     },
     "devDependencies": {
         "@types/estree": "^1.0.8",
-        "@types/lodash": "4.17.20",
+        "@types/lodash": "4.17.21",
         "@types/node": "^22",
+        "conventional-changelog-angular": "^8.1.0",
         "conventional-changelog-cli": "^5.0.0",
-        "glob": "^11.0.3",
+        "glob": "^13.0.0",
         "lodash": "4.17.21",
-        "npm-check-updates": "^18.0.1",
-        "prettier": "^3.6.2",
-        "tsx": "~4.20.3",
+        "npm-check-updates": "^19.3.1",
+        "prettier": "^3.7.4",
+        "tsx": "~4.21.0",
         "turbo": "~2.5.5",
-        "typescript": "~5.8.3"
+        "typescript": "~5.9.3"
     },
-    "packageManager": "pnpm@10.13.1"
+    "packageManager": "pnpm@10.27.0"
 }

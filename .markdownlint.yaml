@@ -1,0 +1,5 @@
+# disable MD013/line-length: Line length
+MD013: false
+
+# disable MD024/no-duplicate-heading: Multiple headings with the same content
+MD024: false 
