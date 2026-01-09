@@ -34,7 +34,7 @@
     },
     "devDependencies": {
         "@types/estree": "^1.0.8",
-        "@types/lodash": "4.17.20",
+        "@types/lodash": "4.17.21",
         "@types/node": "^22",
         "conventional-changelog-cli": "^5.0.0",
         "glob": "^13.0.0",
